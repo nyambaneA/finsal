@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Finsal Savannah Ltd | Opinion polls that tell you where you stand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F8F5;--surface:#FFFFFF;--ink:#16241D;--muted:#5B6A62;--line:#DDE4DE;
+  --green:#1E4A36;--on-green:#F6F8F5;--gold:#D6A33A;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1713;--surface:#16211B;--ink:#EDF2EE;--muted:#9AABA1;--line:#26352C;--green:#6FBF94;--on-green:#0F1713;--gold:#E3B552;}}
+:root[data-theme="dark"]{--bg:#0F1713;--surface:#16211B;--ink:#EDF2EE;--muted:#9AABA1;--line:#26352C;--green:#6FBF94;--on-green:#0F1713;--gold:#E3B552}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Instrument Sans",system-ui,sans-serif;font-size:17px;line-height:1.6}
+h1,h2,h3{font-family:"Bricolage Grotesque","Instrument Sans",system-ui,sans-serif;line-height:1.1;margin:0;letter-spacing:-0.02em}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:20px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.mark{width:22px;height:22px;border-radius:50%;background:var(--green);position:relative}
+.mark::after{content:"";position:absolute;left:5px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--gold)}
+nav{display:flex;gap:28px;align-items:center}
+nav a{text-decoration:none;font-size:15px;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+.btn{display:inline-block;background:var(--green);color:var(--on-green);padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px;border:0;cursor:pointer;font-family:inherit}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+nav .btn{color:var(--on-green)}
+.hero{padding:88px 0 72px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:center}
+h1{font-size:clamp(40px,6vw,68px);font-weight:700}
+.lead{color:var(--muted);font-size:19px;max-width:30em;margin:24px 0 32px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.poll{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px}
+.poll small{color:var(--muted);font-size:13px}
+.poll h3{font-size:22px;margin:8px 0 20px}
+.opt{display:block;width:100%;text-align:left;position:relative;overflow:hidden;background:transparent;border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:10px;font:inherit;color:inherit;cursor:pointer;transition:border-color .2s}
+.opt:hover:not(:disabled){border-color:var(--green)}
+.opt:disabled{cursor:default}
+.opt .bar{position:absolute;inset:0 auto 0 0;background:color-mix(in srgb,var(--green) 18%,transparent);width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.opt.mine{border-color:var(--green)}
+.opt .row{position:relative;display:flex;justify-content:space-between;gap:12px}
+.opt .pct{font-weight:600}
+.poll .foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;min-height:24px}
+.link{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px;padding:0}
+section{padding:80px 0}
+section.alt{background:var(--surface);border-block:1px solid var(--line)}
+h2{font-size:clamp(30px,4vw,44px);max-width:16em}
+.sub{color:var(--muted);max-width:36em;margin-top:14px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:48px;border-top:1px solid var(--line)}
+.svc{padding:32px 32px 32px 0;border-bottom:1px solid var(--line)}
+.svc:nth-child(odd){border-right:1px solid var(--line)}
+.svc:nth-child(even){padding-left:32px}
+.svc h3{font-size:24px;margin-bottom:10px}
+.svc p{color:var(--muted);max-width:28em}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px;list-style:none;padding:0;counter-reset:s}
+.steps li{counter-increment:s;border-top:2px solid var(--green);padding-top:18px}
+.steps li::before{content:counter(s);font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:15px;color:var(--gold);display:block;margin-bottom:6px}
+.steps h3{font-size:20px;margin-bottom:8px}
+.steps p{color:var(--muted);font-size:15px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+.facts{display:grid;gap:22px}
+.facts div{border-left:3px solid var(--gold);padding-left:18px}
+.facts b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:19px}
+.facts span{color:var(--muted);font-size:15px}
+form{display:grid;gap:14px;margin-top:8px}
+label{font-size:14px;font-weight:600;display:grid;gap:6px}
+input,select,textarea{font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;width:100%}
+textarea{min-height:110px;resize:vertical}
+.contact-line{color:var(--muted);margin-top:18px;font-size:15px}
+.page-head{padding:72px 0 40px;border-bottom:1px solid var(--line)}
+.page-head .sub{font-size:19px}
+nav a[aria-current="page"]{color:var(--ink);font-weight:600}
+.dl{display:grid;grid-template-columns:220px 1fr;border-top:1px solid var(--line);margin:0}
+.dl dt,.dl dd{margin:0;padding:18px 0;border-bottom:1px solid var(--line)}
+.dl dt{font-weight:600}
+.dl dd{color:var(--muted)}
+.cta{text-align:left}
+.cta .actions{margin-top:24px}
+footer a{margin-right:18px;text-decoration:none}
+@media (max-width:860px){.dl{grid-template-columns:1fr}.dl dt{border-bottom:0;padding-bottom:2px}.dl dd{padding-top:0}.page-head{padding:44px 0 28px}}
+@media print{header,footer,.noprint{display:none!important}body{background:#fff;color:#000}.dl dd,.sub{color:#333}}
+footer{padding:36px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:860px){
+  .hero{padding:48px 0}
+  .hero .wrap,.split{grid-template-columns:1fr;gap:40px}
+  .grid{grid-template-columns:1fr}
+  .svc,.svc:nth-child(even){padding:26px 0;border-right:0!important}
+  .steps{grid-template-columns:1fr 1fr}
+  nav a.hide{display:none}
+  section{padding:56px 0}
+}
+@media (max-width:480px){.steps{grid-template-columns:1fr}nav{gap:14px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.js"></script>
+<script>
+const { useState } = React;
+const html = htm.bind(React.createElement);
+const EMAIL = "info@finsalsavannah.co.ke";
+
+const SERVICES = [
+  ["Politicians and campaigns", "Know your name recognition, approval and voting intention, ward by ward, and how you compare with your opponents. We turn the numbers into a campaign plan."],
+  ["Companies", "Measure brand reputation, customer satisfaction and employee sentiment, so leadership decides with evidence instead of assumptions."],
+  ["Small and growing businesses", "Test a product, a price or a new location with real customers before you spend. Clear answers, sized to your budget."],
+  ["Social issues", "Understand what communities think about health, education, water, land or governance. Useful to NGOs, county teams and development partners."]
+];
+const STEPS = [
+  ["Define", "We agree the questions you need answered and who must be heard."],
+  ["Design", "We build a random sample and a neutral questionnaire in the local languages."],
+  ["Collect", "Local enumerators interview people in person on offline tablets. No internet needed."],
+  ["Advise", "You receive a clear report, ward-level data and recommendations you can act on."]
+];
+const FACTS = [
+  ["Reaches people other polls miss", "Face-to-face interviews with offline tablets cover villages without internet or phones."],
+  ["Honest answers", "Neutral branding, secret-ballot style questions and anonymous responses."],
+  ["Checked, not assumed", "GPS and time stamps on every interview, with back-checks on at least 15%."],
+  ["Confidential", "Your results belong to you and are never shared with anyone else."]
+];
+const OPTIONS = [["Better roads", 31], ["Clean water", 27], ["Jobs for youth", 24], ["Health services", 18]];
+
+function Poll() {
+  const [pick, setPick] = useState(null);
+  const total = 100;
+  return html`<div class="poll" aria-live="polite">
+    <small>Try a sample poll</small>
+    <h3>What should local leaders fix first?</h3>
+    ${OPTIONS.map(([name, base], i) => {
+      const val = pick === null ? 0 : base + (pick === i ? 1 : 0);
+      const pct = Math.round(val / (total + 1) * 100);
+      return html`<button key=${name} class=${"opt" + (pick === i ? " mine" : "")} disabled=${pick !== null} onClick=${() => setPick(i)}>
+        <span class="bar" style=${{ width: pick === null ? "0%" : pct + "%" }}></span>
+        <span class="row"><span>${name}</span>${pick !== null && html`<span class="pct">${pct}%</span>`}</span>
+      </button>`;
+    })}
+    <div class="foot">
+      <small>${pick === null ? "Choose one to see how others answered." : "Demo results only. Your real poll will use your own data."}</small>
+      ${pick !== null && html`<button class="link" onClick=${() => setPick(null)}>Reset</button>`}
+    </div>
+  </div>`;
+}
+
+function Contact() {
+  const [f, setF] = useState({ name: "", org: "", type: "Politician or campaign", msg: "" });
+  const set = k => e => setF({ ...f, [k]: e.target.value });
+  const body = `Name: ${f.name}\nOrganisation: ${f.org}\nPoll type: ${f.type}\n\n${f.msg}`;
+  const href = `mailto:${EMAIL}?subject=${encodeURIComponent("Poll enquiry from " + (f.name || "a new client"))}&body=${encodeURIComponent(body)}`;
+  return html`<div class="split">
+    <div>
+      <h2>Tell us what you need to know</h2>
+      <p class="sub">Share a few details and we will send a proposal with a method, timeline and clear budget in Kenya shillings.</p>
+      <p class="contact-line">Email: <a href=${"mailto:" + EMAIL}>${EMAIL}</a></p>
+    </div>
+    <form onSubmit=${e => e.preventDefault()}>
+      <label>Your name<input value=${f.name} onChange=${set("name")} onInput=${set("name")} autocomplete="name"/></label>
+      <label>Organisation or constituency<input value=${f.org} onInput=${set("org")}/></label>
+      <label>Type of poll
+        <select value=${f.type} onChange=${set("type")}>
+          <option>Politician or campaign</option><option>Company</option><option>Business</option><option>Social issue</option>
+        </select>
+      </label>
+      <label>What do you want to find out?<textarea value=${f.msg} onInput=${set("msg")}></textarea></label>
+      <a class="btn" href=${href}>Request a proposal</a>
+    </form>
+  </div>`;
+}
+
+function PageHead({ title, sub }) {
+  return html`<div class="page-head"><div class="wrap"><h1 style=${{ fontSize: "clamp(36px,5vw,56px)" }}>${title}</h1><p class="sub">${sub}</p></div></div>`;
+}
+
+const VALUES = [
+  ["Independence", "We report what people say, not what a client hopes to hear. The method is fixed before the first interview."],
+  ["Accuracy", "Random sampling, neutral questions and field checks keep the numbers honest and defensible."],
+  ["Respect for respondents", "Interviews are voluntary, in the language people prefer, and nobody is pressed to answer."],
+  ["Confidentiality", "Respondents stay anonymous and your results stay yours."]
+];
+
+function About() {
+  return html`<main>
+    <${PageHead} title="About Finsal Savannah" sub="We help leaders, companies and communities hear what people really think."/>
+    <section><div class="wrap split">
+      <div>
+        <h2>Why we exist</h2>
+        <p class="sub">Big decisions are often made on instinct, crowd size or the opinions of the people closest to the decision maker. Finsal Savannah Ltd replaces guesswork with evidence gathered from the people who matter.</p>
+        <p class="sub">We work with politicians, companies, businesses and organisations tackling social issues. Wherever the audience is, including places with no internet, we go to them.</p>
+      </div>
+      <div class="facts">
+        <div><b>Our mission</b><span>To give decision makers accurate, independent public opinion evidence they can act on.</span></div>
+        <div><b>Our vision</b><span>Decisions across Kenya that are shaped by what ordinary people actually think.</span></div>
+      </div>
+    </div></section>
+    <section class="alt"><div class="wrap">
+      <h2>What we stand for</h2>
+      <div class="grid">${VALUES.map(([t, d]) => html`<div class="svc" key=${t}><h3>${t}</h3><p>${d}</p></div>`)}</div>
+    </div></section>
+    <section><div class="wrap cta">
+      <h2>Want to see how we would run your poll?</h2>
+      <div class="actions"><a class="btn" href="#contact">Get a proposal</a><a class="btn ghost" href="#profile">Read our company profile</a></div>
+    </div></section>
+  </main>`;
+}
+
+const PROFILE = [
+  ["Company", "Finsal Savannah Ltd"],
+  ["What we do", "Independent opinion polling and public opinion research."],
+  ["Who we serve", "Politicians and campaigns, companies, businesses, NGOs and public institutions."],
+  ["Services", "Voter and popularity polls, competitor comparison, brand and customer surveys, market tests, community and social issue surveys, and strategy recommendations."],
+  ["Methods", "Face-to-face household surveys on offline tablets, focus group discussions, key informant interviews and phone back-checks."],
+  ["Coverage", "Kenya, including rural and hard-to-reach areas without internet."],
+  ["Quality assurance", "Pilot testing, supervised fieldwork, GPS and time stamps, consented audio audits, and back-checks on at least 15% of interviews."],
+  ["Compliance", "Data Protection Act, 2019, and the Publication of Electoral Opinion Polls Act, 2012, where results are published."],
+  ["Deliverables", "Full report, executive briefing, ward or segment-level data tables and a practical strategy plan."],
+  ["Registration details", "Available on request."],
+  ["Contact", EMAIL]
+];
+
+function Profile() {
+  return html`<main>
+    <${PageHead} title="Company profile" sub="A one-page summary of who we are, what we do and how we work."/>
+    <section><div class="wrap">
+      <dl class="dl">${PROFILE.map(([k, v]) => html`<${React.Fragment} key=${k}><dt>${k}</dt><dd>${v}</dd><//>`)}</dl>
+      <div class="actions noprint" style=${{ marginTop: "32px" }}>
+        <button class="btn" onClick=${() => window.print()}>Print or save as PDF</button>
+        <a class="btn ghost" href="#contact">Request a proposal</a>
+      </div>
+    </div></section>
+  </main>`;
+}
+
+function ContactPage() {
+  return html`<main>
+    <${PageHead} title="Contact us" sub="Tell us what you need to find out and we will send a proposal with a method, timeline and budget."/>
+    <section><div class="wrap"><${Contact}/></div></section>
+  </main>`;
+}
+
+function Home() {
+  return html`<main id="top">
+      <div class="hero"><div class="wrap">
+        <div>
+          <h1>Know where you stand before the people decide.</h1>
+          <p class="lead">Finsal Savannah Ltd runs independent opinion polls for politicians, companies, businesses and social causes, including in places where there is no internet.</p>
+          <div class="actions">
+            <a class="btn" href="#contact">Get a proposal</a>
+            <a class="btn ghost" href="#services">See what we poll</a>
+          </div>
+        </div>
+        <${Poll}/>
+      </div></div>
+
+      <section class="alt" id="services"><div class="wrap">
+        <h2>Four kinds of poll, one standard of proof</h2>
+        <p class="sub">Each study is designed around your question and your audience, then checked at every step.</p>
+        <div class="grid">
+          ${SERVICES.map(([t, d]) => html`<div class="svc" key=${t}><h3>${t}</h3><p>${d}</p></div>`)}
+        </div>
+      </div></section>
+
+      <section id="method"><div class="wrap">
+        <h2>From question to decision in about five weeks</h2>
+        <ol class="steps">
+          ${STEPS.map(([t, d]) => html`<li key=${t}><h3>${t}</h3><p>${d}</p></li>`)}
+        </ol>
+      </div></section>
+
+      <section class="alt" id="why"><div class="wrap split">
+        <div>
+          <h2>Built for the ground, not just the screen</h2>
+          <p class="sub">Many polls only reach people who are online. Ours send trained local interviewers to homes and markets, so rural voices count as much as urban ones.</p>
+        </div>
+        <div class="facts">
+          ${FACTS.map(([t, d]) => html`<div key=${t}><b>${t}</b><span>${d}</span></div>`)}
+        </div>
+      </div></section>
+
+      <section><div class="wrap cta">
+        <h2>Ready to hear what people really think?</h2>
+        <div class="actions"><a class="btn" href="#contact">Get a proposal</a><a class="btn ghost" href="#profile">Company profile</a></div>
+      </div></section>
+    </main>`;
+}
+
+const PAGES = { about: About, profile: Profile, contact: ContactPage };
+const readPage = () => { const h = (location.hash || "").slice(1); return PAGES[h] ? h : "home"; };
+
+function App() {
+  const [page, setPage] = useState(readPage);
+  React.useEffect(() => {
+    const on = () => setPage(readPage());
+    window.addEventListener("hashchange", on);
+    return () => window.removeEventListener("hashchange", on);
+  }, []);
+  React.useEffect(() => {
+    const h = (location.hash || "").slice(1);
+    const el = page === "home" && h && h !== "top" ? document.getElementById(h) : null;
+    if (el) el.scrollIntoView(); else window.scrollTo(0, 0);
+  }, [page]);
+  const Page = PAGES[page] || Home;
+  const cur = p => page === p ? "page" : undefined;
+  return html`<div>
+    <header><div class="wrap">
+      <a class="logo" href="#top"><span class="mark"></span>Finsal Savannah</a>
+      <nav>
+        <a class="hide" href="#services">Services</a>
+        <a href="#about" aria-current=${cur("about")}>About</a>
+        <a href="#profile" aria-current=${cur("profile")}>Profile</a>
+        <a class="btn" href="#contact">Contact</a>
+      </nav>
+    </div></header>
+    <${Page}/>
+    <footer><div class="wrap">
+      <span>© 2026 Finsal Savannah Ltd. All rights reserved.</span>
+      <span><a href="#about">About</a><a href="#profile">Company profile</a><a href="#contact">Contact</a></span>
+    </div></footer>
+  </div>`;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(html`<${App}/>`);
+</script>
+</body>
+</html>
