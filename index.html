@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <title>Finsal Savannah Ltd | Opinion polls that tell you where you stand</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,6 +107,19 @@ html{-webkit-text-size-adjust:100%}
 .menu[aria-expanded="true"] i{background:transparent}
 .menu[aria-expanded="true"] i::before{transform:translateY(6px) rotate(45deg)}
 .menu[aria-expanded="true"] i::after{transform:translateY(-6px) rotate(-45deg)}
+.fg{fill:var(--green)}.fy{fill:var(--gold)}.fi{fill:var(--ink)}.fl{fill:var(--line)}.fs{fill:var(--surface)}.fm{fill:var(--muted)}
+.art{width:100%;height:auto;display:block;border-radius:20px;border:1px solid var(--line);background:var(--surface)}
+.ico{width:40px;height:40px;color:var(--green);margin-bottom:14px;display:block}
+.steps .ico{width:30px;height:30px;margin-bottom:10px}
+figure{margin:0}
+figcaption{color:var(--muted);font-size:14px;margin-top:12px}
+.fig{margin-top:32px}
+.band{padding:8px 0 0}
+.band .fig{margin-top:0}
+.hdr-r{display:flex;align-items:center;gap:12px}
+.theme{width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:transparent;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0}
+.theme:hover{border-color:var(--green)}
+.theme svg{width:20px;height:20px}
 /* Large desktop */
 @media (min-width:1400px){.wrap{max-width:1240px}body{font-size:18px}}
 /* Tablet */
@@ -225,6 +240,33 @@ function Contact() {
   </div>`;
 }
 
+const p = (x, y, c, s = 1) => `<g transform='translate(${x} ${y}) scale(${s})'><circle cx='0' cy='-52' r='11' class='${c}'/><path class='${c}' d='M-16 0V-28Q-16-40 0-40Q16-40 16-28V0Z'/></g>`;
+const tree = (x, y, s = 1) => `<g transform='translate(${x} ${y}) scale(${s})'><rect x='-4' y='-85' width='8' height='85' class='fi'/><ellipse cx='0' cy='-88' rx='58' ry='18' class='fg'/><ellipse cx='-22' cy='-100' rx='30' ry='10' class='fg' fill-opacity='.8'/></g>`;
+
+const ICONS = [
+  "<rect x='4' y='10' width='16' height='10' rx='2'/><path d='M8 10V6h8v4M9.5 14.5l1.8 1.8 3.2-3.6'/>",
+  "<rect x='5' y='3' width='10' height='18'/><path d='M15 9h4v12h-4M8 7h4M8 11h4M8 15h4'/>",
+  "<path d='M4 9l1.5-5h13L20 9M4 9v11h16V9M4 9c0 2 3 2 4 0 1 2 3 2 4 0 1 2 3 2 4 0 1 2 4 2 4 0M10 20v-6h4v6'/>",
+  "<circle cx='8' cy='8' r='3'/><circle cx='17' cy='9' r='2.5'/><path d='M2.5 19c0-3.2 2.5-5.5 5.5-5.5s5.5 2.3 5.5 5.5M14.5 14c.8-.4 1.6-.5 2.5-.5 2.6 0 4.5 2 4.5 5'/>",
+  "<circle cx='12' cy='12' r='8'/><circle cx='12' cy='12' r='4'/><circle cx='12' cy='12' r='.8'/>",
+  "<rect x='6' y='4' width='12' height='17' rx='2'/><path d='M9 4h6v3H9zM9 12h6M9 16h4'/>",
+  "<rect x='5' y='3' width='14' height='18' rx='2'/><path d='M11 18h2M8 8h8M8 11h8M8 14h5'/>",
+  "<path d='M4 20h16M7 20v-7M12 20V6M17 20v-10'/>"
+];
+function Icon({ n }) {
+  return html`<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" dangerouslySetInnerHTML=${{ __html: ICONS[n] }}/>`;
+}
+
+const LAND = ["0 0 1200 240", `<rect width='1200' height='240' class='fs'/><circle cx='150' cy='70' r='28' class='fy'/><path class='fg' fill-opacity='.14' d='M0 180L200 80L320 130L470 50L720 180Z'/><path class='fg' fill-opacity='.24' d='M420 180L660 95L800 140L960 70L1200 180Z'/><rect y='180' width='1200' height='60' class='fl'/>${tree(250, 205, .9)}${tree(1010, 212, 1.1)}${p(560, 226, 'fg', 1.1)}${p(612, 227, 'fy', 1.1)}<g transform='rotate(-10 578 200)'><rect x='568' y='192' width='20' height='14' rx='2' class='fi'/><rect x='571' y='195' width='14' height='8' class='fy'/></g>`];
+
+const FIELD = ["0 0 480 320", `<rect width='480' height='320' class='fs'/><circle cx='405' cy='58' r='22' class='fy'/><path class='fg' fill-opacity='.14' d='M0 232L90 142L170 192L250 122L360 232Z'/><path class='fg' fill-opacity='.24' d='M200 232L330 152L420 202L480 172V232Z'/><rect y='232' width='480' height='88' class='fl'/>${tree(70, 245, 1)}${p(215, 272, 'fg', 1.5)}${p(315, 274, 'fy', 1.5)}<g transform='rotate(-10 252 222)'><rect x='238' y='212' width='30' height='22' rx='3' class='fi'/><rect x='242' y='216' width='22' height='14' rx='1' class='fy'/></g><path d='M268 208Q310 170 345 140' fill='none' style='stroke:var(--muted)' stroke-width='1.5' stroke-dasharray='4 5'/><g transform='translate(335 40)'><rect width='128' height='92' rx='12' class='fs' style='stroke:var(--line)' stroke-width='1.5'/><rect x='16' y='52' width='16' height='20' rx='2' class='fg'/><rect x='42' y='36' width='16' height='36' rx='2' class='fy'/><rect x='68' y='22' width='16' height='50' rx='2' class='fg'/><rect x='94' y='44' width='16' height='28' rx='2' class='fy'/><path d='M12 76H116' style='stroke:var(--line)' stroke-width='1.5'/></g>`];
+
+const FOCUS = ["0 0 480 300", `<rect width='480' height='300' class='fs'/><path class='fg' fill-opacity='.14' d='M0 226L110 140L200 190L300 120L420 226Z'/><rect y='226' width='480' height='74' class='fl'/>${p(70, 270, 'fg', 1.45)}${p(160, 262, 'fy', 1.45)}${p(250, 270, 'fi', 1.45)}${p(340, 262, 'fg', 1.45)}${p(430, 270, 'fy', 1.45)}<rect x='118' y='70' width='84' height='44' rx='14' class='fs' style='stroke:var(--line)' stroke-width='1.5'/><path d='M150 113l8 15 6-15Z' class='fs'/><circle cx='140' cy='92' r='4' class='fm'/><circle cx='160' cy='92' r='4' class='fm'/><circle cx='180' cy='92' r='4' class='fm'/><rect x='298' y='84' width='84' height='44' rx='14' class='fs' style='stroke:var(--line)' stroke-width='1.5'/><path d='M330 127l8 15 6-15Z' class='fs'/><path d='M322 106l9 9 17-18' fill='none' style='stroke:var(--green)' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/>`];
+
+function Scene({ svg, label, cap }) {
+  return html`<figure class="fig"><svg class="art" viewBox=${svg[0]} role="img" aria-label=${label} dangerouslySetInnerHTML=${{ __html: svg[1] }}/>${cap && html`<figcaption>${cap}</figcaption>`}</figure>`;
+}
+
 function PageHead({ title, sub }) {
   return html`<div class="page-head"><div class="wrap"><h1 style=${{ fontSize: "clamp(36px,5vw,56px)" }}>${title}</h1><p class="sub">${sub}</p></div></div>`;
 }
@@ -244,6 +286,7 @@ function About() {
         <h2>Why we exist</h2>
         <p class="sub">Big decisions are often made on instinct, crowd size or the opinions of the people closest to the decision maker. Finsal Savannah Ltd replaces guesswork with evidence gathered from the people who matter.</p>
         <p class="sub">We work with politicians, companies, businesses and organisations tackling social issues. Wherever the audience is, including places with no internet, we go to them.</p>
+        <${Scene} svg=${FOCUS} label="A group of community members taking part in a discussion" cap="Focus groups explain the reasons behind the numbers."/>
       </div>
       <div class="facts">
         <div><b>Our mission</b><span>To give decision makers accurate, independent public opinion evidence they can act on.</span></div>
@@ -309,18 +352,20 @@ function Home() {
         <${Poll}/>
       </div></div>
 
+      <section class="band"><div class="wrap"><${Scene} svg=${LAND} label="Interviewers with a tablet walking through the savannah with hills behind" cap="We go where the people are, from town centres to remote villages."/></div></section>
+
       <section class="alt" id="services"><div class="wrap">
         <h2>Four kinds of poll, one standard of proof</h2>
         <p class="sub">Each study is designed around your question and your audience, then checked at every step.</p>
         <div class="grid">
-          ${SERVICES.map(([t, d]) => html`<div class="svc" key=${t}><h3>${t}</h3><p>${d}</p></div>`)}
+          ${SERVICES.map(([t, d], i) => html`<div class="svc" key=${t}><${Icon} n=${i}/><h3>${t}</h3><p>${d}</p></div>`)}
         </div>
       </div></section>
 
       <section id="method"><div class="wrap">
         <h2>From question to decision in about five weeks</h2>
         <ol class="steps">
-          ${STEPS.map(([t, d]) => html`<li key=${t}><h3>${t}</h3><p>${d}</p></li>`)}
+          ${STEPS.map(([t, d], i) => html`<li key=${t}><${Icon} n=${i + 4}/><h3>${t}</h3><p>${d}</p></li>`)}
         </ol>
       </div></section>
 
@@ -328,6 +373,7 @@ function Home() {
         <div>
           <h2>Built for the ground, not just the screen</h2>
           <p class="sub">Many polls only reach people who are online. Ours send trained local interviewers to homes and markets, so rural voices count as much as urban ones.</p>
+          <${Scene} svg=${FIELD} label="An interviewer records a villager's answers on a tablet while results appear as a chart" cap="Answers are recorded on offline tablets, then turned into clear results."/>
         </div>
         <div class="facts">
           ${FACTS.map(([t, d]) => html`<div key=${t}><b>${t}</b><span>${d}</span></div>`)}
@@ -347,6 +393,16 @@ const readPage = () => { const h = (location.hash || "").slice(1); return PAGES[
 function App() {
   const [page, setPage] = useState(readPage);
   const [open, setOpen] = useState(false);
+  const [dark, setDark] = useState(() => {
+    const t = document.documentElement.getAttribute("data-theme");
+    return t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+  const toggleTheme = () => {
+    const next = dark ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    setDark(!dark);
+  };
   React.useEffect(() => {
     const on = () => { setPage(readPage()); setOpen(false); };
     window.addEventListener("hashchange", on);
@@ -362,13 +418,18 @@ function App() {
   return html`<div>
     <header><div class="wrap">
       <a class="logo" href="#top"><span class="mark"></span>Finsal Savannah</a>
-      <button class="menu" aria-label="Menu" aria-expanded=${open} aria-controls="site-nav" onClick=${() => setOpen(!open)}><i></i></button>
+      <div class="hdr-r">
       <nav id="site-nav" class=${open ? "open" : ""} onClick=${() => setOpen(false)}>
         <a href="#services">Services</a>
         <a href="#about" aria-current=${cur("about")}>About</a>
         <a href="#profile" aria-current=${cur("profile")}>Profile</a>
         <a class="btn" href="#contact">Contact</a>
       </nav>
+      <button class="theme" aria-label=${dark ? "Switch to light mode" : "Switch to dark mode"} onClick=${toggleTheme}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" dangerouslySetInnerHTML=${{ __html: dark ? "<circle cx='12' cy='12' r='4'/><path d='M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M5 19l1.4-1.4M17.6 6.4L19 5'/>" : "<path d='M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z'/>" }}/>
+      </button>
+      <button class="menu" aria-label="Menu" aria-expanded=${open} aria-controls="site-nav" onClick=${() => setOpen(!open)}><i></i></button>
+      </div>
     </div></header>
     <${Page}/>
     <footer><div class="wrap">
